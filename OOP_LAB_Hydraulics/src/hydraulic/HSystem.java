@@ -68,7 +68,7 @@ public class HSystem {
 			else{
 				observer.notifyFlow(a.getClass().getSimpleName(), a.getName(), flow, 0.0);
 				a=a.getOutput();
-				if(a!=null) this.nextElement(a.getOutput(), 0.0,observer);
+				if(a!=null) this.nextElement(a, 0.0,observer);
 			}
 		}
 		else if(a instanceof Sink) {
