@@ -14,6 +14,7 @@ public class Food {
 	private List<NutritionalElement> rawMats=new ArrayList<>();
 	private List<NutritionalElement> products=new ArrayList<>();
 	private List<NutritionalElement> recipes=new ArrayList<>();
+	
 	private class Material implements NutritionalElement{
 		private String name;
 		private double calories;
@@ -57,10 +58,6 @@ public class Food {
 		@Override
 		public boolean per100g() {
 			return per100g;
-		}
-		@Override
-		public String toString() {
-			return name;
 		}
 	}
 	/**
@@ -143,7 +140,7 @@ public class Food {
 		for(NutritionalElement a: products) {
 			if(a.getName().equals(name))	return a;
 		}
-		System.err.println("Materiale non trovato");
+		System.err.println("Prodotto confezionato non trovato");
 		return null;
 	}
 	
@@ -181,7 +178,7 @@ public class Food {
 		for(NutritionalElement a: recipes) {
 			if(a.getName().equals(name))	return a;
 		}
-		System.err.println("Materiale non trovato");
+		System.err.println("Ricetta non trovata");
 		return null;
 	}
 	
