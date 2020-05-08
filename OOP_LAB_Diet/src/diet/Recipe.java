@@ -1,7 +1,7 @@
 package diet;
 
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -23,7 +23,7 @@ public class Recipe implements NutritionalElement {
 	private double carbs;
 	private double fat;
 	private double quantity=0;
-    private Map<String,Double> ingredients=new HashMap<>();
+    private Map<String,Double> ingredients=new LinkedHashMap<>();
     public Recipe(String name,Food owner) {
     	this.name=name;
     	this.owner=owner;
