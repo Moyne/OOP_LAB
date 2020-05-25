@@ -8,10 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -295,20 +293,14 @@ public class Region {
 	 *         as value
 	 */
 	public Map<String, Optional<Integer>> maximumBedsNumberPerAltitudeRange() {
-		Map<String, Optional<MountainHut>> x=mountainHut.values().stream().collect
-				(Collectors.groupingBy(e->{
+		return mountainHut.values().stream().collect(Collectors.groupingBy(e->{
 			if(e.getAltitude().isPresent())  return this.getAltitudeRange(e.getAltitude().get());
 			else return this.getAltitudeRange(e.getMunicipality().getAltitude());
-				},Collectors.maxBy((e1,e2)->e1.getBedsNumber().compareTo(e2.getBedsNumber()))));
-		
-		Map<String, Optional<Integer>> z = new HashMap<>();
-		Iterator<Entry<String,Optional<MountainHut>>>it=x.entrySet().iterator();
-		
-		while(it.hasNext()) {
-			Entry<String,Optional<MountainHut>> et=it.next();
-			z.put(et.getKey(), Optional.ofNullable(et.getValue().get().getBedsNumber()));
-		}
-		return z;
+				},Collector.of(ArrayList::new,(List<Optional<Integer>>a,MountainHut b)->a.add(Optional.ofNullable(b.getBedsNumber())),
+					(List<Optional<Integer>> a,List<Optional<Integer>> b)->{
+					a.addAll(b);
+					return a;
+				},a->{a.sort((e1,e2)->e2.get().compareTo(e1.get()));return a.get(0);})));
 	}
 
 	/**
