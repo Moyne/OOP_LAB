@@ -47,7 +47,7 @@ public class ElectiveManager {
     public void loadStudent(String id, 
                                   double gradeAverage){
         if(students.containsKey(id))	students.get(id).setAvg(gradeAverage);
-        students.put(id, new Student(id,gradeAverage));
+        else students.put(id, new Student(id,gradeAverage));
     }
 
     /**
