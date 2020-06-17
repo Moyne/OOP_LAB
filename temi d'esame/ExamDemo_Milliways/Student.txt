@@ -1,0 +1,4 @@
+#Student identification information
+ID=260167
+FirstName=HAMDI
+LastName=MOHAMED AMINE
