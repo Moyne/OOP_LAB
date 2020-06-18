@@ -237,7 +237,7 @@ public class Delivery {
      * @return total amount
      */
     public double totalCustomer(int customerId){
-        return orders.values().stream().filter(e->e.getCustomerId()==customerId).mapToDouble(e->e.totalOrder()).sum();
+        return orders.values().stream().filter(e->e.getCustomerId()==customerId && !e.getOrderStatus().equals(OrderStatus.NEW)).mapToDouble(e->e.totalOrder()).sum();
     }
     
     /**
@@ -246,7 +246,8 @@ public class Delivery {
      * @return the classification
      */
     public SortedMap<Double,List<String>> bestCustomers(){
-        return customers.entrySet().stream().collect(Collectors.groupingBy(e->this.totalCustomer(e.getKey()), TreeMap::new, Collector.of
+        return customers.entrySet().stream().collect(Collectors.groupingBy(e->this.totalCustomer(e.getKey()), 
+        		()->{return new TreeMap<>(Collections.reverseOrder());}, Collector.of
         		(ArrayList::new, (List<String> a,Entry<Integer,Customer> b)->a.add(b.getValue().toString()),
         				(a,b)->{a.addAll(b);return a;}, a->a)));
     }
