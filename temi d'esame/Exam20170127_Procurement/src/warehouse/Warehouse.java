@@ -60,7 +60,8 @@ public class Warehouse {
 	}
 	
 	public Map<String,Long> orderNBySupplier(){
-	    return orders.values().stream().filter(e->e.delivered()).collect(Collectors.groupingBy(e->e.getSuppName(), TreeMap::new, Collectors.counting()));
+	    return suppliers.values().stream().collect(Collectors.groupingBy(e->e.getNome(), TreeMap::new, Collectors.summingLong
+	    		(e->orders.values().stream().filter(d->d.getSuppName().equals(e.getNome()) && d.delivered()).count())));
 	}
 	
 	public List<String> countDeliveredByProduct(){
