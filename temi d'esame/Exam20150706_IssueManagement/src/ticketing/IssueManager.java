@@ -85,6 +85,7 @@ public class IssueManager {
         	}
         	else throw new TicketException();
         }
+	if(x.hasSub(name)) throw new TicketException();
         x.addSub(name);
     }
     
@@ -178,7 +179,7 @@ public class IssueManager {
      */
     public void assingTicket(int ticketId, String username) throws TicketException {
         if(!users.containsKey(username) || !tickets.containsKey(ticketId)) throw new TicketException();
-        if(!users.get(username).contains(UserClass.Maintainer)) throw new TicketException();
+        if(!users.get(username).contains(UserClass.Maintainer) || tickets.get(ticketId).isAssigned() || tickets.get(ticketId).isClosed()) throw new TicketException();
         tickets.get(ticketId).assignTicket(username);
     }
 
